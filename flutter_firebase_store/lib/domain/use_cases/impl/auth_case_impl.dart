@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_firebase_store/data/repository/interface/auth_repository.dart';
 import 'package:flutter_firebase_store/domain/model/user.dart';
 import 'package:flutter_firebase_store/domain/model/ModelResponse.dart';
@@ -9,7 +11,7 @@ class AuthCaseImpl extends AuthCase {
   AuthCaseImpl(this._authRepository);
 
   @override
-  ModelResponse? registerUser(User user) => _authRepository.registerUser(user);
+  FutureOr<ModelResponse>? registerUser(User user) => _authRepository.registerUser(user);
   
   
 }

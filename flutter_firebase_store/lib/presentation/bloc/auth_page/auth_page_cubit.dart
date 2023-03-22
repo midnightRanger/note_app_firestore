@@ -1,12 +1,23 @@
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_firebase_store/data/repository/impl/auth_repository_impl.dart';
+import 'package:flutter_firebase_store/data/repository/interface/auth_repository.dart';
 
+import '../../../DI.dart';
+import '../../../domain/model/ModelResponse.dart';
+import '../../../domain/model/user.dart';
+import '../../../domain/use_cases/interfaces/auth_case.dart';
 import 'auth_page_state.dart';
 
 class AuthPageCubit extends Cubit<AuthPageState> {
-  AuthPageCubit() : super(AuthPageState(count: 0));
+  final _authCase;
 
-  void incrementCounter() {
-    emit(AuthPageState(count: state.count+1));
+  AuthPageCubit(this._authCase) : super(AuthPageState(response: new ModelResponse(error: null, data: null, message: "ok"))) {
+    emit(AuthPageState(response: new ModelResponse(error: null, data: null, message: "ok")));
+  }
+
+  Future<void> registerUser(User user) async {
+    ModelResponse? response = await _authCase.registerUser(user);
+    emit(AuthPageState(response: response));
   }
 }
