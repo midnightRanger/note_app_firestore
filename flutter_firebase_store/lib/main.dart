@@ -26,36 +26,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // return MaterialApp(
-    //     title: 'Flutter Demo',
-    //     theme: ThemeData(
-    //       primarySwatch: Colors.blue,
-    //     ),
-    //     home: MultiProvider(
-    //         providers: [
-    //           BlocProvider(
-    //           create: (context) => AuthPageCubit(AuthCaseImpl(AuthRepositoryImpl()))),
 
-    //           // Remove previous Provider call and create new proxyprovider that depends on AppStateProvider
-    //          ProxyProvider <AppStateProvider, AppRouter>(
-    //               update: (context, appStateProvider, _) =>
-    //                   AppRouter(appStateProvider: appStateProvider))
-    //         ],
-    //         child: FutureBuilder(
-    //             future: DI.getInstance().init(),
-    //             builder: (context, snapshot) {
-    //               if (snapshot.connectionState == ConnectionState.done) {
-    //                 final GoRouter router =
-    //                     Provider.of<AppRouter>(context).router;
-
-    //                 return MaterialApp.router(
-    //                     routeInformationParser: router.routeInformationParser,
-    //                     //theme: mainTheme,
-    //                     routerDelegate: router.routerDelegate);
-    //               } else {
-    //                 return const CircularProgressIndicator();
-    //               }
-    //             })));
 
     return MultiProvider(
       providers: [
@@ -64,7 +35,7 @@ class MyApp extends StatelessWidget {
                 AuthPageCubit(AuthCaseImpl(AuthRepositoryImpl()))),
 
         // Remove previous Provider call and create new proxyprovider that depends on AppStateProvider
-         ChangeNotifierProvider(create: (context) => AppStateProvider()),
+        ChangeNotifierProvider(create: (context) => AppStateProvider()),
         ProxyProvider<AppStateProvider, AppRouter>(
             update: (context, appStateProvider, _) =>
                 AppRouter(appStateProvider: appStateProvider))
