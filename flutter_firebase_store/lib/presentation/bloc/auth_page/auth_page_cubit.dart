@@ -9,6 +9,14 @@ import '../../../domain/model/user.dart';
 import '../../../domain/use_cases/interfaces/auth_case.dart';
 import 'auth_page_state.dart';
 
+enum RegisterUserState {
+  success,
+  user_exists,
+  weak_password,
+  failed,
+  initial
+}
+
 class AuthPageCubit extends Cubit<AuthPageState> {
   final _authCase;
 
