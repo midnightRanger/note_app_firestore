@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_firebase_store/domain/model/ModelResponse.dart';
+import 'package:flutter_firebase_store/presentation/bloc/home_page/home_page_cubit.dart';
+import 'package:flutter_firebase_store/presentation/bloc/listeners/home_listeners.dart';
 
 import 'dart:async';
 
@@ -11,7 +13,7 @@ class HomeRepositoryImpl extends HomeRepository {
   final firestoreInstance = FirebaseFirestore.instance;
 
   @override
-  FutureOr<ModelResponse>? getNotes() {
+  FutureOr<ModelResponse>? getNotes({required HomeListeners homeListener }) {
     List<Note>? allNotes;
     try {
       firestoreInstance
@@ -22,7 +24,7 @@ class HomeRepositoryImpl extends HomeRepository {
         querySnapshot.docs.forEach((result) {
           allNotes!.add(Note.fromJson(result.data()));
         });
-
+        homeListener.successRetrieved();
         return new ModelResponse(
             error: null,
             data: allNotes,

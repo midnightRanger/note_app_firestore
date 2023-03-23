@@ -1,6 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_firebase_store/data/repository/impl/home_repository_impl.dart';
+import 'package:flutter_firebase_store/presentation/bloc/listeners/home_listeners.dart';
 
 import '../../../data/repository/interface/auth_repository.dart';
+import '../../../domain/model/ModelResponse.dart';
 
 enum HomeActionState {
   successDeleted, 
@@ -9,59 +14,33 @@ enum HomeActionState {
   failed
 }
 
-class AuthPageCubit extends Cubit<HomeActionState> implements AuthRegistrationListener {
-  final _authRepository = AuthRepository();
+class HomePageCubit extends Cubit<HomeActionState> implements HomeListeners {
+  final _homeRepository = HomeRepositoryImpl();
 
   
 
-  AuthPageCubit(AuthUserState initialState) : super(initialState);
+  HomePageCubit(HomeActionState initialState) : super(initialState);
 
-  Future<void> registerUser(User user) async {
-    ModelResponse? response = await _authRepository.registerUser(user: user, authRegistrationListener: this);
-  }
-
-  Future<void> loginUser(User user) async {
-    ModelResponse? response = await _authRepository.authUser(user: user, authRegistrationListener: this); 
-  }
-
-
-  @override
-  void failed() {
-    emit(AuthUserState.initial);
-    emit(AuthUserState.failed);
-  }
-
-  @override
-  void successRegister() {
-    emit(AuthUserState.successRegister);
-  }
-
-  @override
-  void successLogin() {
-    emit(AuthUserState.successLogin);
-  }
-
-  @override
-  void userExists() {
-    emit(AuthUserState.initial);
-    emit(AuthUserState.user_exists);
-  }
-
-  @override
-  void weakPassword() {
-    emit(AuthUserState.initial);
-    emit(AuthUserState.weak_password);
+  Future<ModelResponse?> retrievedNotes() async {
+    return await _homeRepository.getNotes(homeListener: this);
   }
   
   @override
-  void userNotFound() {
-    emit(AuthUserState.initial);
-    emit(AuthUserState.userNotFound);
+  failed() {
+emit(HomeActionState.initial);
+    emit(HomeActionState.failed);
   }
   
   @override
-  void wrongPassword() {
-    emit(AuthUserState.initial);
-    emit(AuthUserState.wrongPassword);
+  successDeleted() {
+    emit(HomeActionState.successDeleted);
   }
+  
+  @override
+  successRetrieved() {
+    emit(HomeActionState.successRetrieved);
+  }
+
+
+  
 }
