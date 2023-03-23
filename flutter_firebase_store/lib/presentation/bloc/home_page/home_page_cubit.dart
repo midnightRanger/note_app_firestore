@@ -3,14 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../data/repository/interface/auth_repository.dart';
 
 enum HomeActionState {
-  successRegister,
-  successLogin,
-  userNotFound,
-  wrongPassword,
-  user_exists,
-  weak_password,
-  failed,
-  initial
+  successDeleted, 
+  successRetrieved, 
+  initial, 
+  failed
 }
 
 class AuthPageCubit extends Cubit<HomeActionState> implements AuthRegistrationListener {
