@@ -7,6 +7,7 @@ import '../../../DI.dart';
 import '../../../domain/model/ModelResponse.dart';
 import '../../../domain/model/user.dart';
 import '../../../domain/use_cases/interfaces/auth_case.dart';
+import '../listeners/auth_registration_listeners.dart';
 import 'auth_page_state.dart';
 
 enum RegisterUserState {
@@ -17,15 +18,38 @@ enum RegisterUserState {
   initial
 }
 
-class AuthPageCubit extends Cubit<AuthPageState> {
-  final _authCase;
+class AuthPageCubit extends Cubit<RegisterUserState> implements AuthRegistrationListener {
+  final _authRepository = AuthRepositoryImpl();
 
-  AuthPageCubit(this._authCase) : super(AuthPageState(response: new ModelResponse(error: null, data: null, message: "ok"))) {
-    emit(AuthPageState(response: new ModelResponse(error: null, data: null, message: "ok")));
-  }
+  
+
+  AuthPageCubit(RegisterUserState initialState) : super(initialState);
 
   Future<void> registerUser(User user) async {
-    ModelResponse? response = await _authCase.registerUser(user);
-    emit(AuthPageState(response: response));
+    ModelResponse? response = await _authRepository.registerUser(user: user, authRegistrationListener: this);
+
+  }
+
+  @override
+  void failed() {
+    emit(RegisterUserState.initial);
+    emit(RegisterUserState.failed);
+  }
+
+  @override
+  void success() {
+    emit(RegisterUserState.success);
+  }
+
+  @override
+  void userExists() {
+    emit(RegisterUserState.initial);
+    emit(RegisterUserState.user_exists);
+  }
+
+  @override
+  void weakPassword() {
+    emit(RegisterUserState.initial);
+    emit(RegisterUserState.weak_password);
   }
 }

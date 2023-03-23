@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
             create: (context) =>
-                AuthPageCubit(AuthCaseImpl(AuthRepositoryImpl()))),
+                AuthPageCubit(RegisterUserState.initial)),
 
         // Remove previous Provider call and create new proxyprovider that depends on AppStateProvider
         ChangeNotifierProvider(create: (context) => AppStateProvider()),
