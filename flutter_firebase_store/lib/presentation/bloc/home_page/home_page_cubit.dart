@@ -1,5 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../data/repository/interface/auth_repository.dart';
+
 enum HomeActionState {
   successRegister,
   successLogin,
@@ -12,7 +14,7 @@ enum HomeActionState {
 }
 
 class AuthPageCubit extends Cubit<HomeActionState> implements AuthRegistrationListener {
-  final _authRepository = AuthRepositoryImpl();
+  final _authRepository = AuthRepository();
 
   
 
