@@ -1,16 +1,6 @@
-
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_firebase_store/data/repository/impl/auth_repository_impl.dart';
-import 'package:flutter_firebase_store/data/repository/interface/auth_repository.dart';
 
-import '../../../DI.dart';
-import '../../../domain/model/ModelResponse.dart';
-import '../../../domain/model/user.dart';
-import '../../../domain/use_cases/interfaces/auth_case.dart';
-import '../listeners/auth_registration_listeners.dart';
-import 'auth_page_state.dart';
-
-enum AuthUserState {
+enum HomeActionState {
   successRegister,
   successLogin,
   userNotFound,
@@ -21,7 +11,7 @@ enum AuthUserState {
   initial
 }
 
-class AuthPageCubit extends Cubit<AuthUserState> implements AuthRegistrationListener {
+class AuthPageCubit extends Cubit<HomeActionState> implements AuthRegistrationListener {
   final _authRepository = AuthRepositoryImpl();
 
   
