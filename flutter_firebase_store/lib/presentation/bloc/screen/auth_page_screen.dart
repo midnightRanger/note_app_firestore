@@ -10,6 +10,7 @@ import '../../../domain/validators/auth_validator.dart';
 import '../../elements/dynamic_input_widget.dart';
 import '../auth_page/auth_page_cubit.dart';
 import '../auth_page/auth_page_state.dart';
+import '../buttom_navbar_widget.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key, required this.title});
@@ -71,12 +72,20 @@ class _AuthWidgetStatePage extends State<AuthPageWidget> {
           content: Text(state.getNotificationMessage),
           actions: <Widget>[
             TextButton(
-              onPressed: (
-              ) {switch (state) {
-                case AuthUserState.successLogin:
-        
-                break;  
-              }},
+              onPressed: () {
+                switch (state) {
+                  case AuthUserState.successLogin:
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return CustomBottomNavBar(navItemIndex: 1);
+                        },
+                      ),
+                    );
+
+                    break;
+                }
+              },
               child: const Text('OK'),
             ),
           ],

@@ -23,8 +23,8 @@ mixin _$Note {
   String? get authorId => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get content => throw _privateConstructorUsedError;
-  DateTime get creationDate => throw _privateConstructorUsedError;
-  DateTime get lastUpdating => throw _privateConstructorUsedError;
+  String? get creationDate => throw _privateConstructorUsedError;
+  String? get lastUpdating => throw _privateConstructorUsedError;
   bool get status => throw _privateConstructorUsedError;
   Category get category => throw _privateConstructorUsedError;
 
@@ -42,8 +42,8 @@ abstract class $NoteCopyWith<$Res> {
       {String? authorId,
       String? name,
       String? content,
-      DateTime creationDate,
-      DateTime lastUpdating,
+      String? creationDate,
+      String? lastUpdating,
       bool status,
       Category category});
 
@@ -66,8 +66,8 @@ class _$NoteCopyWithImpl<$Res, $Val extends Note>
     Object? authorId = freezed,
     Object? name = freezed,
     Object? content = freezed,
-    Object? creationDate = null,
-    Object? lastUpdating = null,
+    Object? creationDate = freezed,
+    Object? lastUpdating = freezed,
     Object? status = null,
     Object? category = null,
   }) {
@@ -84,14 +84,14 @@ class _$NoteCopyWithImpl<$Res, $Val extends Note>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String?,
-      creationDate: null == creationDate
+      creationDate: freezed == creationDate
           ? _value.creationDate
           : creationDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      lastUpdating: null == lastUpdating
+              as String?,
+      lastUpdating: freezed == lastUpdating
           ? _value.lastUpdating
           : lastUpdating // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -122,8 +122,8 @@ abstract class _$$_NoteCopyWith<$Res> implements $NoteCopyWith<$Res> {
       {String? authorId,
       String? name,
       String? content,
-      DateTime creationDate,
-      DateTime lastUpdating,
+      String? creationDate,
+      String? lastUpdating,
       bool status,
       Category category});
 
@@ -143,8 +143,8 @@ class __$$_NoteCopyWithImpl<$Res> extends _$NoteCopyWithImpl<$Res, _$_Note>
     Object? authorId = freezed,
     Object? name = freezed,
     Object? content = freezed,
-    Object? creationDate = null,
-    Object? lastUpdating = null,
+    Object? creationDate = freezed,
+    Object? lastUpdating = freezed,
     Object? status = null,
     Object? category = null,
   }) {
@@ -161,14 +161,14 @@ class __$$_NoteCopyWithImpl<$Res> extends _$NoteCopyWithImpl<$Res, _$_Note>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String?,
-      creationDate: null == creationDate
+      creationDate: freezed == creationDate
           ? _value.creationDate
           : creationDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      lastUpdating: null == lastUpdating
+              as String?,
+      lastUpdating: freezed == lastUpdating
           ? _value.lastUpdating
           : lastUpdating // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -202,9 +202,9 @@ class _$_Note implements _Note {
   @override
   final String? content;
   @override
-  final DateTime creationDate;
+  final String? creationDate;
   @override
-  final DateTime lastUpdating;
+  final String? lastUpdating;
   @override
   final bool status;
   @override
@@ -257,8 +257,8 @@ abstract class _Note implements Note {
       {required final String? authorId,
       required final String? name,
       required final String? content,
-      required final DateTime creationDate,
-      required final DateTime lastUpdating,
+      required final String? creationDate,
+      required final String? lastUpdating,
       required final bool status,
       required final Category category}) = _$_Note;
 
@@ -271,9 +271,9 @@ abstract class _Note implements Note {
   @override
   String? get content;
   @override
-  DateTime get creationDate;
+  String? get creationDate;
   @override
-  DateTime get lastUpdating;
+  String? get lastUpdating;
   @override
   bool get status;
   @override

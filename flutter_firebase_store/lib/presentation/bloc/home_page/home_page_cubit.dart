@@ -3,44 +3,70 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_firebase_store/data/repository/impl/home_repository_impl.dart';
 import 'package:flutter_firebase_store/presentation/bloc/listeners/home_listeners.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../data/repository/interface/auth_repository.dart';
 import '../../../domain/model/ModelResponse.dart';
+import '../../../domain/model/note.dart';
 
-enum HomeActionState {
-  successDeleted, 
-  successRetrieved, 
-  initial, 
-  failed
+class HomeActionState {
+  final bool successDeleted;
+  final bool successRetrieved; 
+  final bool initial;
+  final bool failed; 
+  final List<Note>? myNotes;
+
+  const HomeActionState({
+    this.successDeleted = false, 
+    this.successRetrieved = false, 
+    this.myNotes = const [],
+    this.initial = false,
+    this.failed = false 
+  });  
 }
 
 class HomePageCubit extends Cubit<HomeActionState> implements HomeListeners {
   final _homeRepository = HomeRepositoryImpl();
 
-  
-
   HomePageCubit(HomeActionState initialState) : super(initialState);
 
-  Future<ModelResponse?> retrievedNotes() async {
-    return await _homeRepository.getNotes(homeListener: this);
+  Future<List<Note>?> retrievedNotes() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String uid = prefs.getString('uid')!;  
+    return await _homeRepository.getNotes(homeListener: this, uid: uid);
+  }
+
+  Future<void> init() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String uid = prefs.getString('uid')!; 
+    emit(HomeActionState(myNotes: await _homeRepository.getNotes(uid: uid, homeListener: this))
+    );
+    
   }
   
   @override
   failed() {
-emit(HomeActionState.initial);
-    emit(HomeActionState.failed);
+    emit(HomeActionState(
+      failed: true,
+    ));
   }
   
   @override
   successDeleted() {
-    emit(HomeActionState.successDeleted);
+    emit(HomeActionState(
+      successDeleted: true,
+    ));
   }
   
   @override
   successRetrieved() {
-    emit(HomeActionState.successRetrieved);
+    emit(HomeActionState(successRetrieved: true)); 
+  }
+  
+  @override
+  myNotes(List<Note> notes) {
+    emit(HomeActionState(myNotes: notes));
   }
 
 
-  
 }

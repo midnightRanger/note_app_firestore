@@ -24,8 +24,6 @@ enum AuthUserState {
 class AuthPageCubit extends Cubit<AuthUserState> implements AuthRegistrationListener {
   final _authRepository = AuthRepositoryImpl();
 
-  
-
   AuthPageCubit(AuthUserState initialState) : super(initialState);
 
   Future<void> registerUser(User user) async {

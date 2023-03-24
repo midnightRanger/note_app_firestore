@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_store/presentation/bloc/screen/auth_page_screen.dart';
+import 'package:flutter_firebase_store/presentation/bloc/screen/home_page_screen.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../domain/globals/router/router_utils.dart';
@@ -8,10 +9,9 @@ import '../../domain/globals/router/router_utils.dart';
 class CustomBottomNavBar extends StatefulWidget {
   // create index to select from the list of route paths
   int navItemIndex = 0;
-  final String token;
 
   CustomBottomNavBar(
-      {required this.navItemIndex, required this.token, Key? key})
+      {required this.navItemIndex, Key? key})
       : super(key: key);
 
   @override
@@ -21,7 +21,7 @@ class CustomBottomNavBar extends StatefulWidget {
 class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   final List<Widget> pages = [
     AuthPage(title: "Auth page"),
-
+    HomePage(title: "Home")
   ];
 
   // Make a list of routes that you'll want to go to
@@ -34,7 +34,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   @override
   void initState() {
     // pages[2] = ProfilePage(token: widget.token);
-    // pages[1] = HomePage(token: widget.token);
+    pages[1] = HomePage(title: "Home");
     super.initState();
   }
 

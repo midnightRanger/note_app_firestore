@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_firebase_store/domain/model/ModelResponse.dart';
 import 'package:flutter_firebase_store/presentation/bloc/home_page/home_page_cubit.dart';
 import 'package:flutter_firebase_store/presentation/bloc/listeners/home_listeners.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'dart:async';
 
@@ -13,26 +14,42 @@ class HomeRepositoryImpl extends HomeRepository {
   final firestoreInstance = FirebaseFirestore.instance;
 
   @override
-  FutureOr<ModelResponse>? getNotes({required HomeListeners homeListener }) {
-    List<Note>? allNotes;
+  Future<List<Note>?> getNotes(
+      {required String uid, required HomeListeners homeListener}) async {
+    // final SharedPreferences prefs = await SharedPreferences.getInstance();
+    // String? uid = prefs.getString('uid');
+List<Note> notes = [];
     try {
+      
       firestoreInstance
-          .collection("users")
-          .where("ownerUid", isEqualTo: 1)
+          .collection("note")
+          .where("authorId", isEqualTo: "QvbXIeznz4iEyQGhst97")
           .get()
-          .then((querySnapshot) {
-        querySnapshot.docs.forEach((result) {
-          allNotes!.add(Note.fromJson(result.data()));
+          .then((value) {
+
+        value.docs.forEach((result) {
+          print(result.data());
         });
-        homeListener.successRetrieved();
-        return new ModelResponse(
-            error: null,
-            data: allNotes,
-            message: "Successfully retrieved data");
+
+        value.docs.forEach((result) {
+          notes.add(Note.fromJson(result.data()));
+          print(result.data());
+
+          
+          homeListener.successRetrieved();
+          homeListener.myNotes(notes);
+
+          print(notes);
+        });
+
+        
+        // List<Note>? allNotes = (querySnapshot.docs as List).map((e) {
+        //   return Note.fromJson(e);
+        // }).toList();
       });
     } catch (Exception) {
-      return new ModelResponse(
-          error: null, data: null, message: "Something went wrong");
+      return null;
     }
+    return null;
   }
 }
