@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_store/domain/globals/router/router_utils.dart';
+import 'package:flutter_firebase_store/presentation/bloc/screen/profile_page_edit_screen.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../presentation/bloc/screen/auth_page_screen.dart';
@@ -43,7 +44,7 @@ class AppRouter {
         GoRoute(
             path: APP_PAGE.profile_edit.routePath,
             name: APP_PAGE.profile_edit.routeName,
-            builder: (context, state) => const AuthPage(title: "Auth page")
+            builder: (context, state) => const ProfileEditPage(title: "Profile Edit")
             )
           
       ],

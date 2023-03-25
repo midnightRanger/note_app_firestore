@@ -18,15 +18,13 @@ class HomeRepositoryImpl extends HomeRepository {
       {required String uid, required HomeListeners homeListener}) async {
     // final SharedPreferences prefs = await SharedPreferences.getInstance();
     // String? uid = prefs.getString('uid');
-List<Note> notes = [];
+    List<Note> notes = [];
     try {
-      
       firestoreInstance
           .collection("note")
           .where("authorId", isEqualTo: uid)
           .get()
           .then((value) {
-
         value.docs.forEach((result) {
           print(result.data());
         });
@@ -35,14 +33,12 @@ List<Note> notes = [];
           notes.add(Note.fromJson(result.data()));
           print(result.data());
 
-          
           homeListener.successRetrieved();
           homeListener.myNotes(notes);
 
           print(notes);
         });
 
-        
         // List<Note>? allNotes = (querySnapshot.docs as List).map((e) {
         //   return Note.fromJson(e);
         // }).toList();
