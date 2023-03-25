@@ -23,7 +23,7 @@ List<Note> notes = [];
       
       firestoreInstance
           .collection("note")
-          .where("authorId", isEqualTo: "QvbXIeznz4iEyQGhst97")
+          .where("authorId", isEqualTo: uid)
           .get()
           .then((value) {
 
