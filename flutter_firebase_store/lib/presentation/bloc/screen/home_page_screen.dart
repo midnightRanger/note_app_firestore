@@ -58,10 +58,11 @@ class _HomeWidgetStatePage extends State<HomePageWidget> {
           },
         );
       }
-    },
+            },
     
-     builder: (context, state) {
-      Center(
+      builder: (context, state){ 
+          
+      return Center(
           child: BlocBuilder<HomePageCubit, HomeActionState>(
               
               builder: (context, state) {
@@ -224,8 +225,16 @@ class _HomeWidgetStatePage extends State<HomePageWidget> {
 
                 return CircularProgressIndicator();
               }));
+              
+     }
+     
+     
+             
 
-      return CircularProgressIndicator();
-    }));
+      
+    
+    
+    
+    ));
   }
 }
