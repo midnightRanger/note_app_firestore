@@ -14,6 +14,7 @@ class HomeActionState {
   final bool successRetrieved; 
   final bool initial;
   final bool failed; 
+  final bool refresh;
   final List<Note>? myNotes;
 
   const HomeActionState({
@@ -21,7 +22,8 @@ class HomeActionState {
     this.successRetrieved = false, 
     this.myNotes = const [],
     this.initial = false,
-    this.failed = false 
+    this.failed = false,
+    this.refresh = false
   });  
 }
 
@@ -43,6 +45,7 @@ class HomePageCubit extends Cubit<HomeActionState> implements HomeListeners {
     );
     
   }
+
   
   @override
   failed() {
@@ -66,6 +69,11 @@ class HomePageCubit extends Cubit<HomeActionState> implements HomeListeners {
   @override
   myNotes(List<Note> notes) {
     emit(HomeActionState(myNotes: notes));
+  }
+  
+  @override
+  refresh() {
+    emit(HomeActionState(refresh: true)); 
   }
 
 

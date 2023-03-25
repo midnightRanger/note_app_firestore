@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_firebase_store/presentation/bloc/screen/profile_page_edit_screen.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../domain/globals/router/router_utils.dart';
@@ -197,14 +198,14 @@ class _ProfileWidgetStatePage extends State<ProfilePageWidget> {
                       width: double.infinity,
                       child: ElevatedButton(
                           onPressed: () {
-                            // Navigator.of(context)
-                            //     .push(MaterialPageRoute(
-                            //   builder: (BuildContext context) {
-                            //     return ProfilePageEdit(
-                            //         token: widget.token!);
-                            //   },
-                            // ));
-                            GoRouter.of(context).goNamed(APP_PAGE.profile_edit.routeName);
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(
+                              builder: (BuildContext context) {
+                                return ProfileEditPage(
+                                    title: "Profile Edit");
+                              },
+                            ));
+                            // GoRouter.of(context).goNamed(APP_PAGE.profile_edit.routeName);
                           },
                           style: ElevatedButton.styleFrom(
                             primary: Color.fromRGBO(3, 158, 162, 1),

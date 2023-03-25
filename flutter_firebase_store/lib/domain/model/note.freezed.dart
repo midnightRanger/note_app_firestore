@@ -26,7 +26,7 @@ mixin _$Note {
   String? get creationDate => throw _privateConstructorUsedError;
   String? get lastUpdating => throw _privateConstructorUsedError;
   bool get status => throw _privateConstructorUsedError;
-  Category get category => throw _privateConstructorUsedError;
+  String get category => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,9 +45,7 @@ abstract class $NoteCopyWith<$Res> {
       String? creationDate,
       String? lastUpdating,
       bool status,
-      Category category});
-
-  $CategoryCopyWith<$Res> get category;
+      String category});
 }
 
 /// @nodoc
@@ -99,16 +97,8 @@ class _$NoteCopyWithImpl<$Res, $Val extends Note>
       category: null == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
-              as Category,
+              as String,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $CategoryCopyWith<$Res> get category {
-    return $CategoryCopyWith<$Res>(_value.category, (value) {
-      return _then(_value.copyWith(category: value) as $Val);
-    });
   }
 }
 
@@ -125,10 +115,7 @@ abstract class _$$_NoteCopyWith<$Res> implements $NoteCopyWith<$Res> {
       String? creationDate,
       String? lastUpdating,
       bool status,
-      Category category});
-
-  @override
-  $CategoryCopyWith<$Res> get category;
+      String category});
 }
 
 /// @nodoc
@@ -176,7 +163,7 @@ class __$$_NoteCopyWithImpl<$Res> extends _$NoteCopyWithImpl<$Res, _$_Note>
       category: null == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
-              as Category,
+              as String,
     ));
   }
 }
@@ -208,7 +195,7 @@ class _$_Note implements _Note {
   @override
   final bool status;
   @override
-  final Category category;
+  final String category;
 
   @override
   String toString() {
@@ -260,7 +247,7 @@ abstract class _Note implements Note {
       required final String? creationDate,
       required final String? lastUpdating,
       required final bool status,
-      required final Category category}) = _$_Note;
+      required final String category}) = _$_Note;
 
   factory _Note.fromJson(Map<String, dynamic> json) = _$_Note.fromJson;
 
@@ -277,7 +264,7 @@ abstract class _Note implements Note {
   @override
   bool get status;
   @override
-  Category get category;
+  String get category;
   @override
   @JsonKey(ignore: true)
   _$$_NoteCopyWith<_$_Note> get copyWith => throw _privateConstructorUsedError;

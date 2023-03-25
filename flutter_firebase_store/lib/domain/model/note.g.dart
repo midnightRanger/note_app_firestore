@@ -13,7 +13,7 @@ _$_Note _$$_NoteFromJson(Map<String, dynamic> json) => _$_Note(
       creationDate: json['creationDate'] as String?,
       lastUpdating: json['lastUpdating'] as String?,
       status: json['status'] as bool,
-      category: Category.fromJson(json['category'] as Map<String, dynamic>),
+      category: json['category'] as String,
     );
 
 Map<String, dynamic> _$$_NoteToJson(_$_Note instance) => <String, dynamic>{

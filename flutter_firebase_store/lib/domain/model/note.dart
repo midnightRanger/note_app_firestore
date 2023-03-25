@@ -2,7 +2,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'category.dart';
 
 part 'note.freezed.dart';
 part 'note.g.dart';
@@ -15,8 +14,8 @@ class Note with _$Note{
   required String? content,
   required String? creationDate, 
   required String? lastUpdating,
-  required bool status, 
-  required Category category 
+  required bool status,
+  required String category ,
   }) = _Note; 
 
   factory Note.fromJson(Map<String, dynamic> json) => _$NoteFromJson(json); 

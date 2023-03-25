@@ -5,5 +5,6 @@ abstract class HomeListeners {
   successRetrieved();  
   failed();
   myNotes(List<Note> notes);
+  refresh();
 }
 

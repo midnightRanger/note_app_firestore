@@ -20,11 +20,15 @@ class ProfileEditPage extends StatefulWidget {
 class _ProfileEditStatePage extends State<ProfileEditPage> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
+    return Scaffold(
+      appBar: AppBar(title: Text(widget.title)),
+      body: 
+    
+    BlocProvider(
       create: (context) =>
           ProfileEditPageCubit(ProfileEditState(initial: true))..init(),
       child: ProfileEditPageWidget(),
-    );
+    ));
   }
 }
 
@@ -64,14 +68,7 @@ class _ProfileEditStatePageWidget extends State<ProfileEditPageWidget> {
   
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        // appBar: AppBar(actions: [
-        //   IconButton(onPressed: (){
-        //     showSearch(context: context, delegate: CustomSearchDelegate(allPosts: _allNotes, token: widget.token!));
-        //   },icon: const Icon(Icons.search))
-        // ]),
-
-        body: BlocConsumer<ProfileEditPageCubit, ProfileEditState>(
+    return  BlocConsumer<ProfileEditPageCubit, ProfileEditState>(
             listener: (context, state) {
       if (state.successUpdated == true) {
         AlertDialog alert = AlertDialog(
@@ -208,6 +205,6 @@ class _ProfileEditStatePageWidget extends State<ProfileEditPageWidget> {
 
         return CircularProgressIndicator();
       }));
-    }));
+    });
   }
 }
