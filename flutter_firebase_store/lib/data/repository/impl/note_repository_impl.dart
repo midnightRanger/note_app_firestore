@@ -6,6 +6,7 @@ import 'package:flutter_firebase_store/presentation/bloc/listeners/home_listener
 import 'package:flutter_firebase_store/presentation/bloc/listeners/note_add_listeners.dart';
 import 'package:flutter_firebase_store/domain/model/note.dart';
 import 'package:flutter_firebase_store/domain/model/ModelResponse.dart';
+import 'package:flutter_firebase_store/presentation/bloc/listeners/note_update_listeners.dart';
 
 class NoteRepositoryImpl extends NoteRepository {
   final firestoreInstance = FirebaseFirestore.instance;
@@ -52,5 +53,50 @@ class NoteRepositoryImpl extends NoteRepository {
     } catch (e) {
       print(e);
     }
+  }
+
+  @override
+  FutureOr<Note?> updateNote(
+      {required String name,
+      required Note note,
+      required NoteUpdateListeners noteUpdateListeners}) async {
+    try {
+ String? uid;
+      await firestoreInstance
+          .collection("note")
+          .where("name", isEqualTo: name)
+          .get()
+          .then((value) {
+        uid = value.docs[0].id;
+      });
+
+
+      await firestoreInstance.collection("note").doc(uid).update({
+        "category": note.category,
+        "content": note.content,
+        "name": note.name,
+        "lastUpdating": DateTime.now().toString()
+      }).then((value) => {print("updated")});
+    } catch (Exception) {
+      print(Exception);
+    }
+
+    return note;
+  }
+
+  @override
+  FutureOr<Note?> getNote({required String name}) async {
+    Note? note;
+    try {
+      await firestoreInstance
+          .collection("note")
+          .where("name", isEqualTo: name)
+          .get()
+          .then((value) => {note = Note.fromJson(value.docs[0].data()!)});
+    } catch (Exception) {
+      print(Exception);
+    }
+
+    return note;
   }
 }

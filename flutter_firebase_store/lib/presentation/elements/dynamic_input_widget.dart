@@ -11,6 +11,7 @@ class DynamicInputWidget extends StatelessWidget {
       required this.labelText,
       required this.textInputAction,
       required this.isNonPasswordField,
+      
       this.maxLines,
       this.minLines,
       Key? key})
@@ -36,6 +37,7 @@ class DynamicInputWidget extends StatelessWidget {
   final TextInputAction textInputAction;
   final int? maxLines;
   final int? minLines;
+
 
   @override
   Widget build(BuildContext context) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_firebase_store/presentation/bloc/note_add_page/note_add_page_cubit.dart';
 import 'package:flutter_firebase_store/presentation/bloc/screen/note_add_screen.dart';
+import 'package:flutter_firebase_store/presentation/bloc/screen/note_edit_page_screen.dart';
 
 import '../../../domain/model/ModelResponse.dart';
 import '../../../domain/model/note.dart';
@@ -135,16 +136,16 @@ class _HomeWidgetStatePage extends State<HomePageWidget> {
                                     width: double.infinity,
                                     child: ElevatedButton(
                                         onPressed: () {
-                                          // Navigator.of(context)
-                                          //     .push(MaterialPageRoute(
-                                          //   builder:
-                                          //       (BuildContext context) {
-                                          //     return NoteEditPage(
-                                          //         token: widget.token!,
-                                          //         id: snapshot
-                                          //             .data![index].id!);
-                                          //   },
-                                          // ));
+                                          Navigator.of(context)
+                                              .push(MaterialPageRoute(
+                                            builder:
+                                                (BuildContext context) {
+                                              return NoteEditPage(title: "Note Edit",
+                                                  noteName: state.myNotes![index].name!);
+                                            },
+                                          )).then((_) {
+                                  context.read<HomePageCubit>().init();
+                                });
                                           // // GoRouter.of(context).goNamed(APP_PAGE.profile_edit.routeName, queryParams: {'token': widget.token!});
                                         },
                                         style: ElevatedButton.styleFrom(
