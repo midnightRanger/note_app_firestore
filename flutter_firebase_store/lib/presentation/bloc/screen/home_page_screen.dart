@@ -43,22 +43,34 @@ class _HomeWidgetStatePage extends State<HomePageWidget> {
 
         body: BlocConsumer<HomePageCubit, HomeActionState>(
             listener: (context, state) {
-      if (state == HomeActionState(successRetrieved: true)) {
-        AlertDialog alert = AlertDialog(
-          title: const Text('Auth: '),
-          content: Text("Получение данных"),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {},
-              child: const Text('OK'),
-            ),
-          ],
-        );
+ 
 
         if (state == HomeActionState(refresh: true)) {
           context.read<HomePageCubit>().init();
         }
-      }
+
+        if (state.successDeleted == true) {
+           AlertDialog alert = AlertDialog(
+          title: const Text('Note delete: '),
+          content: Text("Note was successfully deleted"),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                 Navigator.of(context, rootNavigator: true).pop();
+                 context.read<HomePageCubit>().init();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return alert;
+          },
+        );
+        }
+      
     }, builder: (context, state) {
       return Center(child: BlocBuilder<HomePageCubit, HomeActionState>(
           builder: (context, state) {
@@ -102,7 +114,10 @@ class _HomeWidgetStatePage extends State<HomePageWidget> {
                                   // Flexible(flex: 1, fit: FlexFit.tight, child: SizedBox()),
                                   ElevatedButton(
                                       onPressed: () {
-                                        // deleteNote(id: snapshot.data![index].id!, context);
+                                        context
+                                            .read<HomePageCubit>()
+                                            .deleteNote(
+                                                state.myNotes![index].name!);
                                         // // GoRouter.of(context).goNamed(APP_PAGE.profile_edit.routeName, queryParams: {'token': widget.token!});
                                       },
                                       style: ElevatedButton.styleFrom(
@@ -188,11 +203,11 @@ class _HomeWidgetStatePage extends State<HomePageWidget> {
                                     return NoteAddPage(title: "Note Add");
                                   },
                                 )).then((_) {
-                                    context.read<HomePageCubit>().init();
+                                  context.read<HomePageCubit>().init();
                                 }
-                                // // GoRouter.of(context).goNamed(APP_PAGE.profile_edit.routeName, queryParams: {'token': widget.token!});
-                          );},
-                
+                                    // // GoRouter.of(context).goNamed(APP_PAGE.profile_edit.routeName, queryParams: {'token': widget.token!});
+                                    );
+                              },
                               style: ElevatedButton.styleFrom(
                                 primary: Color.fromRGBO(10, 86, 88, 1),
                                 shape: new RoundedRectangleBorder(
