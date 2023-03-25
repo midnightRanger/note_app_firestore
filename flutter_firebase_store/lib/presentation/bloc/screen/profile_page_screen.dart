@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../domain/model/ModelResponse.dart';
 import '../../../domain/model/note.dart';
 import '../home_page/home_page_cubit.dart';
+import '../profile_page/profile_page_cubit.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key, required this.title});
@@ -39,11 +40,11 @@ class _ProfileWidgetStatePage extends State<ProfilePageWidget> {
         //   },icon: const Icon(Icons.search))
         // ]),
 
-        body: BlocConsumer<HomePageCubit, HomeActionState>(
+        body: BlocConsumer<ProfilePageCubit, ProfileState>(
             listener: (context, state) {
-      if (state == HomeActionState(successRetrieved: true)) {
+      if (state == ProfileState(successRetrieved: true)) {
         AlertDialog alert = AlertDialog(
-          title: const Text('Auth: '),
+          title: const Text('Profile: '),
           content: Text("Получение данных"),
           actions: <Widget>[
             TextButton(
@@ -60,152 +61,177 @@ class _ProfileWidgetStatePage extends State<ProfilePageWidget> {
         );
       }
     }, builder: (context, state) {
-      return Center(child: BlocBuilder<HomePageCubit, HomeActionState>(
+      return Center(child: BlocBuilder<ProfilePageCubit, ProfileState>(
           builder: (context, state) {
-        if (state.myNotes != null) {
-          return ListView.builder(
-              itemCount: state.myNotes!.length + 1,
-              itemBuilder: (context, index) {
-                if (index < state.myNotes!.length) {
-                  return ListTile(
-                    title: Row(children: [
-                      Expanded(
-                          flex: 1,
-                          child: Text(
-                            state.myNotes![index].name!,
-                            textAlign: TextAlign.center,
-                          )),
-                      Icon(Icons.notes_outlined)
-                    ]),
-                    subtitle: ConstrainedBox(
-                      constraints: new BoxConstraints(minHeight: 100.0),
-                      child: Container(
-                          decoration: BoxDecoration(
-                            color: Color.fromRGBO(116, 154, 155, 1),
-                            border: Border.all(
-                              color: Color.fromRGBO(3, 158, 162, 1),
-                            ),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(15.0)),
-                          ),
-                          child: Padding(
-                              padding: EdgeInsets.all(10.0),
-                              child: Column(children: [
-                                Row(children: [
-                                  Expanded(
-                                      flex: 1,
-                                      child: Text(
-                                          state.myNotes![index].content!,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1)),
-                                  // Flexible(flex: 1, fit: FlexFit.tight, child: SizedBox()),
-                                  ElevatedButton(
-                                      onPressed: () {
-                                        // deleteNote(id: snapshot.data![index].id!, context);
-                                        // // GoRouter.of(context).goNamed(APP_PAGE.profile_edit.routeName, queryParams: {'token': widget.token!});
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        primary: Color.fromRGBO(10, 86, 88, 1),
-                                        shape: new RoundedRectangleBorder(
-                                          borderRadius:
-                                              new BorderRadius.circular(10.0),
-                                        ),
-                                        minimumSize: Size(30, 30),
-                                      ),
-                                      child: const Icon(Icons.delete))
-                                ]),
-                                SizedBox(height: 10.0),
-                                Container(
-                                    width: double.infinity,
-                                    child: ElevatedButton(
-                                        onPressed: () {
-                                          // Navigator.of(context)
-                                          //     .push(MaterialPageRoute(
-                                          //   builder:
-                                          //       (BuildContext context) {
-                                          //     return NoteEditPage(
-                                          //         token: widget.token!,
-                                          //         id: snapshot
-                                          //             .data![index].id!);
-                                          //   },
-                                          // ));
-                                          // // GoRouter.of(context).goNamed(APP_PAGE.profile_edit.routeName, queryParams: {'token': widget.token!});
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          primary:
-                                              Color.fromRGBO(10, 86, 88, 1),
-                                          shape: new RoundedRectangleBorder(
-                                            borderRadius:
-                                                new BorderRadius.circular(10.0),
-                                          ),
-                                          minimumSize: Size(42, 42),
-                                        ),
-                                        child: Text("Update",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyText1))),
-                                Row(children: [
-                                  Text(
-                                    // "Created: ${snapshot.data![index].creationDate.toLocal().toString().substring(0, 19)}",
-                                    "ss",
-                                    style: TextStyle(
-                                        fontSize: 12.0, color: Colors.black45),
-                                    overflow: TextOverflow.fade,
-                                  ),
-                                  Expanded(flex: 1, child: SizedBox()),
-                                  Text(
-                                    // "Updated: ${snapshot.data![index].lastUpdating.toLocal().toString().substring(0, 19)}",
-                                    "ss",
-                                    overflow: TextOverflow.fade,
-                                    style: TextStyle(
-                                        fontSize: 12.0, color: Colors.black45),
-                                  ),
-                                ]),
-                                SizedBox(height: 10),
-                                Row(children: [
-                                  Text(
-                                    "Category: ${state.myNotes![index].category.categoryName}",
-                                    overflow: TextOverflow.fade,
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                        fontSize: 12.0, color: Colors.black45),
-                                  ),
-                                  Expanded(flex: 1, child: SizedBox()),
-                                ])
-                              ]))),
-                    ),
-                  );
-                } else {
-                  return Padding(
-                      padding: EdgeInsets.only(left: 15.0, right: 15.0),
-                      child: Container(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                              onPressed: () {
-                                // Navigator.of(context)
-                                //     .push(MaterialPageRoute(
-                                //   builder: (BuildContext context) {
-                                //     return NoteAddPage(
-                                //         token: widget.token!);
-                                //   },
-                                // )).then(onGoBack);
-                                // // GoRouter.of(context).goNamed(APP_PAGE.profile_edit.routeName, queryParams: {'token': widget.token!});
-                              },
-                              style: ElevatedButton.styleFrom(
-                                primary: Color.fromRGBO(10, 86, 88, 1),
-                                shape: new RoundedRectangleBorder(
-                                  borderRadius: new BorderRadius.circular(10.0),
+        if (state.user != null) {
+            return Column(children: [
+                      Row(
+                        children: [
+                          Container(
+                              decoration: BoxDecoration(
+                                color: Color.fromRGBO(156, 152, 140, 1),
+                                border: Border.all(
+                                  color: Color.fromRGBO(156, 152, 140, 1),
                                 ),
-                                minimumSize: Size(42, 42),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15.0)),
                               ),
-                              child: Text("Create new",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .copyWith(color: Colors.white)))));
-                }
-              });
+                              child: Expanded(
+                                child: Icon(Icons.account_box, size: 100.0),
+                              )),
+                          Padding(
+                              padding: const EdgeInsets.only(left: 5.0),
+                              child: Text("User profile",
+                                  style: Theme.of(context).textTheme.headline2))
+                        ],
+                      ),
+
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: 10, bottom: 10, right: 10, left: 10),
+                        child: Container(
+                            color: Colors.grey,
+                            width: double.infinity,
+                            height: 1),
+                      ),
+
+                      Container(
+                        child: Row(
+                          children: [
+                            ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  primary: Color.fromRGBO(3, 158, 162, 1),
+                                  shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(10.0),
+                                  ),
+                                  minimumSize: Size(42, 42),
+                                ),
+                                child: Icon(
+                                  Icons.email,
+                                  size: 20,
+                                )),
+                            Padding(
+                                padding: EdgeInsets.only(left: 13, right: 120),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("${state.user!.email}",
+                                        style: const TextStyle(
+                                          fontFamily: 'Plus Jakarta Sans',
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 17.0,
+                                          color: Colors.black,
+                                        )),
+                                    const Text("E-mail",
+                                        style: TextStyle(
+                                          fontFamily: 'Plus Jakarta Sans',
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 12.0,
+                                          color: Colors.grey,
+                                        ))
+                                  ],
+                                )),
+                          ],
+                        ),
+                      ),
+
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: 20, bottom: 20, right: 10, left: 10),
+                        child: Container(
+                            color: Colors.grey,
+                            width: double.infinity,
+                            height: 1),
+                      ),
+
+                      Container(
+                        child: Row(
+                          children: [
+                            ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  primary: Color.fromRGBO(3, 158, 162, 1),
+                                  shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(10.0),
+                                  ),
+                                  minimumSize: Size(42, 42),
+                                ),
+                                child: Icon(
+                                  Icons.man,
+                                  size: 20,
+                                )),
+                            Padding(
+                                padding: EdgeInsets.only(left: 13, right: 120),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("${state.user!.userName}",
+                                        style: TextStyle(
+                                          fontFamily: 'Plus Jakarta Sans',
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 17.0,
+                                          color: Colors.black,
+                                        )),
+                                    Text("User name",
+                                        style: TextStyle(
+                                          fontFamily: 'Plus Jakarta Sans',
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 12.0,
+                                          color: Colors.grey,
+                                        ))
+                                  ],
+                                )),
+                          ],
+                        ),
+                      ),
+
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: 10, bottom: 10, right: 10, left: 10),
+                        child: Container(
+                            color: Colors.grey,
+                            width: double.infinity,
+                            height: 1),
+                      ),
+
+                      Expanded(
+                          child: Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Container(
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                    onPressed: () {
+                                      // Navigator.of(context)
+                                      //     .push(MaterialPageRoute(
+                                      //   builder: (BuildContext context) {
+                                      //     return ProfilePageEdit(
+                                      //         token: widget.token!);
+                                      //   },
+                                      // ));
+                                      // GoRouter.of(context).goNamed(APP_PAGE.profile_edit.routeName, queryParams: {'token': widget.token!});
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Color.fromRGBO(3, 158, 162, 1),
+                                      shape: new RoundedRectangleBorder(
+                                        borderRadius:
+                                            new BorderRadius.circular(10.0),
+                                      ),
+                                      minimumSize: Size(42, 42),
+                                    ),
+                                    child: Text("Update profile",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1)),
+                              )))
+                      // SizedBox(height: 8.0),
+                      // Text(
+                      //   '${userInfo.userName} ${userInfo.email}',
+                      //   style: TextStyle(fontSize: 16.0),
+                      // )
+                    ]);
         }
 
         return CircularProgressIndicator();
