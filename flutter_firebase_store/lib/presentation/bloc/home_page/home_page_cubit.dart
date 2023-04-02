@@ -7,7 +7,7 @@ import 'package:flutter_firebase_store/presentation/bloc/listeners/home_listener
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../data/repository/interface/auth_repository.dart';
-import '../../../domain/model/ModelResponse.dart';
+import '../../../domain/model/model_response.dart';
 import '../../../domain/model/note.dart';
 
 class HomeActionState {

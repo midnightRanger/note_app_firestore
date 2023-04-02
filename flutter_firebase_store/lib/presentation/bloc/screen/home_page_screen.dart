@@ -4,7 +4,9 @@ import 'package:flutter_firebase_store/presentation/bloc/note_add_page/note_add_
 import 'package:flutter_firebase_store/presentation/bloc/screen/note_add_screen.dart';
 import 'package:flutter_firebase_store/presentation/bloc/screen/note_edit_page_screen.dart';
 
-import '../../../domain/model/ModelResponse.dart';
+
+import '../../../domain/model/model_response.dart';
+import 'package:flutter/src/widgets/image.dart' as ImageWidget; 
 import '../../../domain/model/note.dart';
 import '../home_page/home_page_cubit.dart';
 
@@ -131,6 +133,15 @@ class _HomeWidgetStatePage extends State<HomePageWidget> {
                                       ),
                                       child: const Icon(Icons.delete))
                                 ]),
+                                SizedBox(height: 10.0),
+
+                                ImageWidget.Image.network(
+                state.myNotes![index].image.url!,
+                errorBuilder: (context, error, stackTrace) {
+                  return Text('Ошибка');
+                },
+              ),
+
                                 SizedBox(height: 10.0),
                                 Container(
                                     width: double.infinity,

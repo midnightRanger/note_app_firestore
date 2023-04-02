@@ -4,7 +4,7 @@ import 'package:flutter_firebase_store/presentation/bloc/screen/profile_page_edi
 import 'package:go_router/go_router.dart';
 
 import '../../../domain/globals/router/router_utils.dart';
-import '../../../domain/model/ModelResponse.dart';
+import '../../../domain/model/model_response.dart';
 import '../../../domain/model/note.dart';
 import '../home_page/home_page_cubit.dart';
 import '../profile_page/profile_page_cubit.dart';

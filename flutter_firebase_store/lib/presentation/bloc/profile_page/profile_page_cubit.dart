@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../data/repository/impl/profile_repository_impl.dart';
 import '../../../data/repository/interface/auth_repository.dart';
-import '../../../domain/model/ModelResponse.dart';
+import '../../../domain/model/model_response.dart';
 import '../../../domain/model/note.dart';
 import '../../../domain/model/user.dart';
 import '../listeners/profile_listeners.dart';

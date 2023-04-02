@@ -4,7 +4,7 @@ import 'package:flutter_firebase_store/data/repository/impl/auth_repository_impl
 import 'package:flutter_firebase_store/data/repository/interface/auth_repository.dart';
 
 import '../../../DI.dart';
-import '../../../domain/model/ModelResponse.dart';
+import '../../../domain/model/model_response.dart';
 import '../../../domain/model/user.dart';
 import '../../../domain/use_cases/interfaces/auth_case.dart';
 import '../listeners/auth_registration_listeners.dart';

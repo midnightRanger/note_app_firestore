@@ -4,8 +4,8 @@ import 'package:flutter_firebase_store/presentation/bloc/note_add_page/note_add_
 import 'package:flutter_firebase_store/presentation/bloc/note_edit_page/note_edit_page_cubit.dart';
 import 'package:flutter_firebase_store/presentation/bloc/screen/note_add_screen.dart';
 
-import '../../../domain/model/ModelResponse.dart';
-import '../../../domain/model/note.dart';
+import '../../../domain/model/model_response.dart';
+import '../../../domain/model/note.dart' as Note;
 import '../../../domain/validators/note_validator.dart';
 import '../../elements/dynamic_input_widget.dart';
 import '../home_page/home_page_cubit.dart';
@@ -22,37 +22,29 @@ class NoteEditPage extends StatefulWidget {
 class _NoteEditStatePage extends State<NoteEditPage> {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
-      body: 
-    BlocProvider(
-      create: (context) => NoteEditPageCubit(NoteEditState(initial: true))
-        ..init(widget.noteName),
-      child: NoteEditPageWidget(noteName: widget.noteName),
-    ));
+        appBar: AppBar(title: Text(widget.title)),
+        body: BlocProvider(
+          create: (context) => NoteEditPageCubit(NoteEditState(initial: true))
+            ..init(widget.noteName),
+          child: NoteEditPageWidget(noteName: widget.noteName),
+        ));
   }
 }
 
 class NoteEditPageWidget extends StatefulWidget {
   final String? noteName;
 
-   NoteEditPageWidget({this.noteName});
+  NoteEditPageWidget({this.noteName});
 
   @override
   _NoteEditWidgetStatePage createState() => _NoteEditWidgetStatePage();
 }
 
 class _NoteEditWidgetStatePage extends State<NoteEditPageWidget> {
-
-  
-
-  
-
-    final nameFocusNode = FocusNode();
-    final contentFocusNode = FocusNode(); 
-    final categoryFocusNode =  FocusNode(); 
-
+  final nameFocusNode = FocusNode();
+  final contentFocusNode = FocusNode();
+  final categoryFocusNode = FocusNode();
 
   final NoteValidator noteValidator = NoteValidator();
   @override
@@ -71,7 +63,6 @@ class _NoteEditWidgetStatePage extends State<NoteEditPageWidget> {
       // }
 
       if (state.successUpdated == true) {
-        
         AlertDialog alert = AlertDialog(
           title: const Text('Note update: '),
           content: Text("Note was successfully updated"),
@@ -95,25 +86,25 @@ class _NoteEditWidgetStatePage extends State<NoteEditPageWidget> {
       return Center(child: BlocBuilder<NoteEditPageCubit, NoteEditState>(
           builder: (context, state) {
         if (state.note != null) {
-
-    final nameController = TextEditingController(text: state.note!.name);
-    final contentController = TextEditingController(text: state.note!.content);
-    final categoryController = TextEditingController(text: state.note!.category);
+          final nameController = TextEditingController(text: state.note!.name);
+          final contentController =
+              TextEditingController(text: state.note!.content);
+          final categoryController =
+              TextEditingController(text: state.note!.category);
 
           return Column(children: [
             Row(
               children: [
                 Container(
-                    decoration: BoxDecoration(
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(156, 152, 140, 1),
+                    border: Border.all(
                       color: Color.fromRGBO(156, 152, 140, 1),
-                      border: Border.all(
-                        color: Color.fromRGBO(156, 152, 140, 1),
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
                     ),
-                    child: 
-                      Icon(Icons.note, size: 100.0),
-                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                  ),
+                  child: Icon(Icons.note, size: 100.0),
+                ),
                 Padding(
                     padding: const EdgeInsets.only(left: 5.0),
                     child: Text("Note",
@@ -162,7 +153,7 @@ class _NoteEditWidgetStatePage extends State<NoteEditPageWidget> {
               padding:
                   EdgeInsets.only(top: 10, bottom: 10, right: 10, left: 10),
             ),
-           SizedBox(
+            SizedBox(
               height: 100,
               child: DynamicInputWidget(
                   controller: categoryController,
@@ -182,8 +173,20 @@ class _NoteEditWidgetStatePage extends State<NoteEditPageWidget> {
                     child: Container(
                       width: double.infinity,
                       child: ElevatedButton(
-                          onPressed: () => context.read<NoteEditPageCubit>().updateNote(Note(category: categoryController.text, name: nameController.text, content: contentController.text,
-                         authorId: "", status: true, creationDate: "", lastUpdating: ""), widget.noteName!),
+                          onPressed: () => context
+                              .read<NoteEditPageCubit>()
+                              .updateNote(
+                                  Note.Note(
+                                      category: categoryController.text,
+                                      name: nameController.text,
+                                      content: contentController.text,
+                                      authorId: "",
+                                      status: true,
+                                      creationDate: "",
+                                      lastUpdating: "",
+                                      image: new Note.Image(
+                                          url: "123", name: "123", size: 123)),
+                                  widget.noteName!),
                           style: ElevatedButton.styleFrom(
                             primary: Color.fromRGBO(3, 158, 162, 1),
                             shape: new RoundedRectangleBorder(

@@ -1,11 +1,12 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_firebase_store/data/repository/interface/note_repository.dart';
 import 'package:flutter_firebase_store/presentation/bloc/listeners/home_listeners.dart';
 import 'package:flutter_firebase_store/presentation/bloc/listeners/note_add_listeners.dart';
 import 'package:flutter_firebase_store/domain/model/note.dart';
-import 'package:flutter_firebase_store/domain/model/ModelResponse.dart';
+import 'package:flutter_firebase_store/domain/model/model_response.dart';
 import 'package:flutter_firebase_store/presentation/bloc/listeners/note_update_listeners.dart';
 
 class NoteRepositoryImpl extends NoteRepository {
@@ -14,12 +15,27 @@ class NoteRepositoryImpl extends NoteRepository {
   @override
   FutureOr<Note?> addNote(
       {required String uid,
-      required Note note,
-      required NoteAddListeners noteAddListeners}) async {
+      required Note note, 
+      required NoteAddListeners noteAddListeners, required dynamic file}) async {
     try {
+      Map<String, dynamic> noteToJson = note.toJson();
+
+      String? url;
+      
+      FirebaseStorage storage = FirebaseStorage.instance;
+      Reference ref = storage.ref().child("image1" + DateTime.now().toString());
+      UploadTask uploadTask = ref.putFile(file);
+      await uploadTask.whenComplete(() async  {
+      url = await ref.getDownloadURL();
+   }).catchError((onError) {
+    print(onError);
+   });
+
+      Note note2 = note.copyWith(image: Image(name: note.image.name, url: url, size: note.image.size ));
+
       await firestoreInstance
           .collection("note")
-          .add(note.toJson())
+          .add(note2.toJson())
           .then((value) {
         noteAddListeners.successCreated();
       });

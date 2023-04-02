@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_firebase_store/data/repository/interface/auth_repository.dart';
 import 'package:flutter_firebase_store/domain/model/user.dart';
-import 'package:flutter_firebase_store/domain/model/ModelResponse.dart';
+import 'package:flutter_firebase_store/domain/model/model_response.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_firebase_store/domain/model/ModelResponse.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_firebase_store/domain/model/model_response.dart';
 import 'package:flutter_firebase_store/presentation/bloc/home_page/home_page_cubit.dart';
 import 'package:flutter_firebase_store/presentation/bloc/listeners/home_listeners.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,9 +30,12 @@ class HomeRepositoryImpl extends HomeRepository {
           print(result.data());
         });
 
+       
+
         value.docs.forEach((result) {
           notes.add(Note.fromJson(result.data()));
           print(result.data());
+          
 
           homeListener.successRetrieved();
           homeListener.myNotes(notes);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../domain/model/ModelResponse.dart';
+import '../../../domain/model/model_response.dart';
 import '../../../domain/model/note.dart';
 import '../../../domain/model/user.dart';
 import '../../../domain/validators/auth_validator.dart';

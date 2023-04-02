@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'modelresponse.freezed.dart';
-part 'modelresponse.g.dart';
+part 'model_response.freezed.dart';
+part 'model_response.g.dart';
 
 @freezed
 class ModelResponse with _$ModelResponse{

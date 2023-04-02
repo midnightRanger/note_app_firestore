@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../data/repository/impl/profile_repository_impl.dart';
 import '../../../data/repository/interface/auth_repository.dart';
-import '../../../domain/model/ModelResponse.dart';
+import '../../../domain/model/model_response.dart';
 import '../../../domain/model/note.dart';
 import '../../../domain/model/user.dart';
 import '../listeners/profile_edit_listeners.dart';
@@ -32,12 +32,13 @@ class NoteAddPageCubit extends Cubit<NoteAddState> implements NoteAddListeners {
 
   NoteAddPageCubit(NoteAddState initialState) : super(initialState);
 
-  Future<void> addNote(Note note) async {
+  Future<void> addNote(Note note, dynamic file) async {
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String uid = prefs.getString('uid')!; 
-    var updatedNote = Note(status: note.status, authorId: uid, category: note.category, content: note.content, name: note.name, lastUpdating: note.lastUpdating, creationDate: note.creationDate);
-    await _noteRepository.addNote(uid: uid, note: updatedNote, noteAddListeners: this);
+    var updatedNote = Note(status: note.status, authorId: uid, category: note.category, content: note.content, name: note.name, 
+    lastUpdating: note.lastUpdating, creationDate: note.creationDate, image: note.image);
+    await _noteRepository.addNote(uid: uid, note: updatedNote, noteAddListeners: this, file: file);
   }
   
   @override

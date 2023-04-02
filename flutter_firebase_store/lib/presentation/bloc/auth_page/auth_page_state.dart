@@ -1,4 +1,4 @@
-import '../../../domain/model/ModelResponse.dart';
+import '../../../domain/model/model_response.dart';
 
 class AuthPageState {
 
